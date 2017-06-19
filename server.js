@@ -3,6 +3,7 @@ var mongoose = require("mongoose");
 var bodyParser = require("body-parser");
 
 var theControllers = require("./controllers/Controller");
+var chatController = require("./controllers/ChatController");
 
 var app = express();
 // app.set("port", process.env.PORT || 3000);
@@ -50,23 +51,11 @@ app.get("/", function(req, res) {
   res.send("hello there");
 });
 
-// app.get("/names", function(req, res) {
-//   var content = { name: req.query.name };
-//   var data = new Name(content);
-//   data.save(function(err, dt) {
-//     if (err) {
-//       return res.sendResponse(404);
-//     }
-//     return res.send(dt);
-//   });
-// });
-
 // firing my controllers from Controller.js file
 theControllers(app);
 
-// app.listen(app.get("port"), function() {
-//   console.log("Running...");
-// });
+// firing the ChatController
+chatController(app);
 
 app.listen(3001, function() {
   console.log("Running on port 3001");
