@@ -7,6 +7,7 @@ var bodyParser = require("body-parser");
 var theControllers = require("./controllers/Controller");
 var chatController = require("./controllers/ChatController");
 var mainController = require("./controllers/mainController");
+var adminController = require("./controllers/adminController");
 
 var app = express();
 // app.set("port", process.env.PORT || 3000);
@@ -69,8 +70,11 @@ theControllers(app);
 // firing the ChatController
 chatController(app);
 
-//firing the mainController
+// firing the mainController
 mainController(app);
+
+// firing the adminController
+adminController(app);
 
 app.listen(3001, function() {
   console.log("Running on port 3001");
