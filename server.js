@@ -1,9 +1,12 @@
 var express = require("express");
 var mongoose = require("mongoose");
 var bodyParser = require("body-parser");
+// var cookieParser = require("cookie-parser");
+// var session = require("express-session");
 
 var theControllers = require("./controllers/Controller");
 var chatController = require("./controllers/ChatController");
+var mainController = require("./controllers/mainController");
 
 var app = express();
 // app.set("port", process.env.PORT || 3000);
@@ -22,6 +25,15 @@ var Name = mongoose.model("Names", nameSchema);
 
 var jsonParser = bodyParser.json();
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
+
+// app.use(cookieParser());
+// app.use(
+//   session({
+//     secret: "dsfdafgdsfw454fg635uhg546y76g5643",
+//     resave: false,
+//     saveUninitialized: true
+//   })
+// );
 
 app.use(function(req, res, next) {
   // Website you wish to allow to connect
@@ -56,6 +68,9 @@ theControllers(app);
 
 // firing the ChatController
 chatController(app);
+
+//firing the mainController
+mainController(app);
 
 app.listen(3001, function() {
   console.log("Running on port 3001");
