@@ -7,6 +7,7 @@ var bodyParser = require("body-parser");
 var theControllers = require("./controllers/Controller");
 var chatController = require("./controllers/ChatController");
 var mainController = require("./controllers/mainController");
+var userController = require("./controllers/userController");
 var adminController = require("./controllers/adminController");
 
 var app = express();
@@ -72,6 +73,9 @@ chatController(app);
 
 // firing the mainController
 mainController(app);
+
+// firing the userController
+userController(app);
 
 // firing the adminController
 adminController(app);
