@@ -1,11 +1,37 @@
 var bodyParser = require("body-parser");
 var Models = require("../models/models.js");
+var validator = require("validator");
 
 var jsonParser = bodyParser.json();
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
+function validation_checker(req, res, next) {
+  var fail = false;
+  if (!validator.isEmail(req.body.email)) {
+    fail = true;
+  }
+  if (
+    !(validator.isNumeric(req.body.mobile) &&
+      validator.isLength(req.body.mobile, { min: 6, max: 15 }))
+  ) {
+    fail = true;
+  }
+  var mod_name = req.body.name.replace(/[ ]/ig, "");
+  if (!validator.isAlpha(mod_name)) {
+    fail = true;
+  }
+  if (!validator.isAscii(req.body.msg)) {
+    fail = true;
+  }
+  if (!fail) {
+    next();
+  } else {
+    return res.sendStatus(400);
+  }
+}
+
 module.exports = function(app) {
-  app.post("/customer-register", jsonParser, function(req, res) {
+  app.post("/customer-register", validation_checker, function(req, res) {
     if (!req.body) {
       return res.sendStatus(400);
     }
@@ -70,7 +96,7 @@ module.exports = function(app) {
         });
       });
   });
-  app.post("/customer-chat", jsonParser, function(req, res) {
+  app.post("/customer-chat", function(req, res) {
     if (!req.body) {
       return res.sendStatus(400);
     }

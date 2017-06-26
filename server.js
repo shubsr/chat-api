@@ -25,8 +25,8 @@ var Name = mongoose.model("Names", nameSchema);
 
 // var Name = mongoose.model("name_1", nameSchema);
 
-var jsonParser = bodyParser.json();
-var urlencodedParser = bodyParser.urlencoded({ extended: false });
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // app.use(cookieParser());
 // app.use(
